@@ -1,6 +1,15 @@
 # License Processing
 
-## Usage:
+### Prerequisites
+It assumes that all licenses have pattern 
+```
+/* license text 
+ * in multiple rows 
+ */
+```
+
+
+### Usage
 
 #### Insert license to all files in Assets/Scripts folder except meta files:
 `node license -insert -src ./license.txt -path ./Assets/Scripts -exclude ".*\.meta"`

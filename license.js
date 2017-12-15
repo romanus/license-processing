@@ -123,6 +123,12 @@ const help = () => {
 
     // WARNING: if copy commands from next string, mind escaped backslashes!
     console.log(`
+    Prerequisites:
+    It assumes that all licenses have pattern 
+    /* license text 
+     * in multiple rows 
+     */
+
     Usage:
 
     Insert license to all files in Assets/Scripts folder except meta files:
