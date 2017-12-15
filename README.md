@@ -12,7 +12,7 @@ It assumes that all licenses have pattern
 
 ### Usage
 
-#### Insert license to all .cs files in Assets folder except GoogleVR folder content
+#### Insert license to all .cs files in Assets folder except for GoogleVR folder content
 `node license.js -insert -src ./license.txt -path ./Assets -matches ".*\.cs$" -exclude "GoogleVR/"`
 
 #### Delete license from all files in Assets folder
