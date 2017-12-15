@@ -134,7 +134,7 @@ const help = () => {
     Insert license to all files in Assets/Scripts folder except meta files:
     node license.js -insert -src ./license.txt -path ./Assets/Scripts -exclude ".*\\.meta"
 
-    Delete license from all files in Assets/Scripts folder except meta files:
+    Delete license from all files in Assets/Scripts folder:
     node license.js -delete -path ./Assets/Scripts
 
     Replace current license with new:
