@@ -1,7 +1,7 @@
 # License Processing
 
 ### Prerequisites
-Node v8.0.0 or higher needed (check `node -v`)
+Node v8.0.0 or higher needed (check `node -v`).
 
 It assumes that all licenses have pattern 
 ```
@@ -10,14 +10,13 @@ It assumes that all licenses have pattern
  */
 ```
 
-
 ### Usage
 
-#### Insert license to all files in Assets/Scripts folder except meta files:
-`node license.js -insert -src ./license.txt -path ./Assets/Scripts -exclude ".*\.meta"`
+#### Insert license to all .cs files in Assets folder except GoogleVR foler conten
+`node license.js -insert -src ./license.txt -path ./Assets -matches ".*\\.cs$" -exclude "GoogleVR/"`
 
 #### Delete license from all files in Assets/Scripts folder:
-`node license.js -delete -path ./Assets/Scripts`
+`node license.js -delete -path ./Assets`
 
-#### Replace current license with new:
-`node license.js -replace -src ./license.txt -path ./Assets/Scripts -exclude ".*\.meta"`
+#### Replace current license with new
+`node license.js -replace -src ./license.txt -path ./Assets -matches ".*\\.cs$" -exclude "GoogleVR/"`

@@ -44,6 +44,7 @@ const insert = async (args) => {
     let license_path = null;
     let files_directory = null;
     let exclude = /^(?!.*)/; // regexp that matches nothing
+    let matches = /.*/; // regexp that matches everyhing 
 
     // get input data
     args.forEach(function (val, index, array) {
@@ -51,6 +52,7 @@ const insert = async (args) => {
             case '-src': license_path = args[index+1]; break;
             case '-path': files_directory = args[index+1]; break;
             case '-exclude': exclude = new RegExp(args[index+1]); break;
+            case '-matches': matches = new RegExp(args[index+1]); break;
         }
     });
 
@@ -69,27 +71,33 @@ const insert = async (args) => {
 
     // get all files from path
     const files_list = getAllFilesFromPath(files_directory);
-    const filtered_files_list = files_list.filter(file_path => !file_path.matches(exclude));
+
+    // filter files
+    let filtered_files_list = files_list.filter(file_path => file_path.matches(matches));
+    filtered_files_list = filtered_files_list.filter(file_path => !file_path.matches(exclude));
+
     console.log(`Adding licenses to ${filtered_files_list.length} files...`);
 
     for(let file_path of filtered_files_list){
         const file_content = await readFile(file_path);
-        const new_file_content = license_text + "\n\n" + file_content;
-        new_file_content.replace('\uFEFF', ''); // delete this annoying symbol
+        let new_file_content = license_text + "\n\n" + file_content;
+        new_file_content = new_file_content.replace('\uFEFF', ''); // delete this annoying symbol
         await writeFile(file_path, new_file_content);
     }
 };
 
 const del = async (args) => {
-    const license_regexp = /^\/\*(.|\n|\r)*?\*\/(\n|\r|\s)*/;
+    const license_regexp = /^\/\*(.|\n|\r)*?\*\/(\n|\r|\s)*/; // find first extended comment + all newlines (lazy)
     let files_directory = null;
     let exclude = /^(?!.*)/; // regexp that matches nothing
+    let matches = /.*/; // regexp that matches everyhing 
 
     // get input data
     args.forEach(function (val, index, array) {
         switch(val){
             case '-path': files_directory = args[index+1]; break;
             case '-exclude': exclude = new RegExp(args[index+1]); break;
+            case '-matches': matches = new RegExp(args[index+1]); break;
         }
     });
 
@@ -101,7 +109,11 @@ const del = async (args) => {
 
     // get all files from path
     const files_list = getAllFilesFromPath(files_directory);
-    const filtered_files_list = files_list.filter(file_path => !file_path.matches(exclude));
+
+    // filter files
+    let filtered_files_list = files_list.filter(file_path => file_path.matches(matches));
+    filtered_files_list = filtered_files_list.filter(file_path => !file_path.matches(exclude));
+
     console.log(`Removing licenses from ${filtered_files_list.length} files...`);
 
     for(let file_path of filtered_files_list){
@@ -131,14 +143,14 @@ const help = () => {
 
     Usage:
 
-    Insert license to all files in Assets/Scripts folder except meta files:
-    node license.js -insert -src ./license.txt -path ./Assets/Scripts -exclude ".*\\.meta"
+    Insert license to all .cs files in Assets folder except GoogleVR foler content:
+    node license.js -insert -src ./license.txt -path ./Assets -matches ".*\\.cs$" -exclude "GoogleVR/"
 
     Delete license from all files in Assets/Scripts folder:
-    node license.js -delete -path ./Assets/Scripts
+    node license.js -delete -path ./Assets
 
     Replace current license with new:
-    node license.js -replace -src ./license.txt -path ./Assets/Scripts -exclude ".*\\.meta"
+    node license.js -replace -src ./license.txt -path ./Assets -matches ".*\\.cs$" -exclude "GoogleVR/"
     `);
 };
 
