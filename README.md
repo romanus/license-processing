@@ -1,6 +1,8 @@
 # License Processing
 
 ### Prerequisites
+Node v8.0.0 or higher needed (check `node -v`)
+
 It assumes that all licenses have pattern 
 ```
 /* license text 
