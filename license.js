@@ -143,10 +143,10 @@ const help = () => {
 
     Usage:
 
-    Insert license to all .cs files in Assets folder except GoogleVR foler content:
+    Insert license to all .cs files in Assets folder except GoogleVR folder content:
     node license.js -insert -src ./license.txt -path ./Assets -matches ".*\\.cs$" -exclude "GoogleVR/"
 
-    Delete license from all files in Assets/Scripts folder:
+    Delete license from all files in Assets folder:
     node license.js -delete -path ./Assets
 
     Replace current license with new:
