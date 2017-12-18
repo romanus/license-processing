@@ -135,22 +135,14 @@ const help = () => {
 
     // WARNING: if copy commands from next string, mind escaped backslashes!
     console.log(`
-    Prerequisites:
-    It assumes that all licenses have pattern 
-    /* license text 
-     * in multiple rows 
-     */
-
-    Usage:
-
-    Insert license to all .cs files in Assets folder except for GoogleVR folder content:
-    node license.js -insert -src ./license.txt -path ./Assets -matches ".*\\.cs$" -exclude "GoogleVR/"
+    Insert license to all .cs, .java and .mm files except for GoogleVR and Vuforia folders content:
+    node license.js -insert -src ./license.txt -path ./ -matches ".*\\.(cs|mm|java)$" -exclude "(GoogleVR|Vuforia)\\/"
 
     Delete license from all files in Assets folder:
     node license.js -delete -path ./Assets
 
     Replace current license with new:
-    node license.js -replace -src ./license.txt -path ./Assets -matches ".*\\.cs$" -exclude "GoogleVR/"
+    node license.js -replace -src ./license.txt -path ./ -matches ".*\\.(cs|mm|java)$" -exclude "(GoogleVR|Vuforia)\\/"
     `);
 };
 
